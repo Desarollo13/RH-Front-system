@@ -69,8 +69,11 @@
 
 <script setup>
 import { ref, onMounted, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import logoPrincipal from '@/assets/img/logo.jpeg'
 import logoNexen from '@/assets/img/logoNexen.png'
+
+const router = useRouter()
 
 const email = ref('')
 const password = ref('')
@@ -102,7 +105,8 @@ const handleLogin = () => {
   passwordStatus.value = isPasswordValid ? 'is-valid' : 'is-invalid'
 
   if (isEmailValid && isPasswordValid) {
-    console.log('Login con:', email.value, password.value)
+    console.log('Login válido, redirigiendo...')
+    router.push({ name: 'dashboard' })
   }
 }
 
