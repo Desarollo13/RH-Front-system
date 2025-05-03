@@ -38,7 +38,8 @@
 }
 
 /* ===== GLOBAL STYLES ===== */
-body {
+body,
+html {
   background-color: var(--set);
 }
 
