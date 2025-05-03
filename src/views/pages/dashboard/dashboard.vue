@@ -12,12 +12,15 @@
 <script setup>
 import LoadingSpinner from '@/components/LoadingSpinner.vue'
 import { ref, onMounted } from 'vue'
+import { usePageTitle } from '@/composables/usePageTitle.js'
 
 const isLoading = ref(true)
+const pageTitle = usePageTitle()
 
 onMounted(() => {
+  pageTitle.value = 'Dashboard'
   setTimeout(() => {
     isLoading.value = false
-  }, 2000) // simulación de carga
+  }, 2000)
 })
 </script>
