@@ -82,8 +82,8 @@ const pageTitle = usePageTitle()
 }
 
 .logo-img {
-  height: 54px;
-  max-height: 60px;
+  height: 64px;
+  max-height: 80px;
   object-fit: contain;
   transition: transform 0.2s;
 }
