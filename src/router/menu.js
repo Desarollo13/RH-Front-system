@@ -1,8 +1,8 @@
 export const menuItems = [
   {
-    title: 'Inicio',
+    title: 'Dasboard',
     path: '/dashboard',
-    icon: 'bi bi-house',
+    icon: 'bi bi-bar-chart',
   },
   {
     title: 'Recursos Humanos',
