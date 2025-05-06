@@ -3,7 +3,7 @@
     <LoadingSpinner v-if="isLoading" />
     <div v-else>
       <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh">
-        <h1 class="text-primary text-center">Mi primer proyecto</h1>
+       <Dashboard/>
       </div>
     </div>
   </div>
@@ -13,6 +13,7 @@
 import LoadingSpinner from '@/components/LoadingSpinner.vue'
 import { ref, onMounted } from 'vue'
 import { usePageTitle } from '@/composables/usePageTitle.js'
+import Dashboard from '../../../components/Dashboard.vue'
 
 const isLoading = ref(true)
 const pageTitle = usePageTitle()
