@@ -11,28 +11,28 @@ export const menuItems = [
     submenus: [
       {
         title: 'Contrataciones',
-        path: '#',
+        path: '#contrataciones',
         icon: 'bi bi-star-fill',
       },
       {
         title: 'Empleados',
-        path: '#',
+        path: '#empleados',
         icon: 'bi bi-star-fill',
       },
       {
         title: 'Evaluaciones',
-        path: '#',
+        path: '#evaluaciones',
         icon: 'bi bi-star-fill',
       },
       {
         title: 'Nomina',
-        path: '#',
+        path: '#nomina',
         icon: 'bi bi-wallet',
       },
       {
         title: 'Tickets',
-        path: '#',
-        icon: '/bi bi-ticket-detailed',
+        path: '#tickets',
+        icon: 'bi bi-ticket-detailed',
       },
     ],
   },

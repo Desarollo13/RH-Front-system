@@ -37,10 +37,15 @@
                 class="submenu ps-4 list-unstyled"
               >
                 <li v-for="(sub, j) in item.submenus" :key="j">
-                  <a class="nav-link" :class="{ active: isActive(sub.path) }" :href="sub.path">
+                  <a
+                    class="nav-link"
+                    :class="{ active: isActive(sub.path) }"
+                    @click.prevent="goToAnchor(sub.path)"
+                  >
                     <i :class="sub.icon"></i>
                     <span class="ms-2">{{ sub.title }}</span>
                   </a>
+
                 </li>
               </ul>
             </transition>
@@ -79,6 +84,14 @@ const isActiveSub = (item) => {
   if (!item.submenus) return false
   return item.submenus.some((sub) => sub.path === route.path)
 }
+const goToAnchor = (hash) => {
+  const id = hash.replace('#', '')
+  const el = document.getElementById(id)
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth' })
+  }
+}
+
 </script>
 
 <style scoped>

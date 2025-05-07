@@ -1,5 +1,11 @@
 /* ===== VARIABLES ===== */
 :root {
+  --card-bg: rgba(255, 255, 255, 0.9);
+  --text-title: #1f2937;
+  --text-muted: #6b7280;
+  --border-light: rgba(0, 0, 0, 0.05);
+  --accent: #3b82f6;
+  --background: #f9fafb;
   --ff: 'Oswald', sans-serif;
   --w: rgb(255, 255, 255);
   --w-light: rgb(236, 236, 236);
