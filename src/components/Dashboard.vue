@@ -23,19 +23,20 @@ import ChartPie from './PieChart.vue'
 
           <div class="card-grid ">
             <div class="summary-card accepted">
-              <h3>Contratos Aceptados</h3>
+              <h3><span class="bi bi-check-circle-fill">  Contratos Aceptados </span></h3>
               <p class="card-number">23</p>
             </div>
             <div class="summary-card in-contract">
-              <h3>En Contrato</h3>
+              <h3> <span class="bi bi-person-badge-fill"> En Contrato</span></h3>
               <p class="card-number">15</p>
+
             </div>
             <div class="summary-card expiring">
-              <h3>Por Expirar</h3>
+              <h3><span class="bi bi-patch-question-fill"> Por Expirar</span></h3>
               <p class="card-number">4</p>
             </div>
             <div class="summary-card finished">
-              <h3>Finalizados</h3>
+              <h3><span class="bi bi-bag-dash-fill"> Finalizados</span></h3>
               <p class="card-number">10</p>
             </div>
           </div>
@@ -61,7 +62,7 @@ import ChartPie from './PieChart.vue'
           <h2 class="section-title"><i class="bi bi-person-badge-fill text-green-500">Contrataciones</i></h2>
           <div class="card-grid flex-wrapper ">
             <div class="summary-card accepted">
-              <h3>Contratos Aceptados</h3>
+              <h3><span class="bi bi-check-circle-fill">  Contratos Aceptados </span></h3>
               <p class="card-number">23</p>
             </div>
           </div>
@@ -83,7 +84,7 @@ import ChartPie from './PieChart.vue'
           <h2 class="section-title"><i class="bi bi-people-fill text-purple-500">Empleados</i></h2>
           <div class="card-grid flex-wrapper ">
             <div class="summary-card in-contract">
-              <h3>Nuevos Ingresos</h3>
+              <h3> <span class="bi bi-people-fill"> Nuevos Ingresos </span></h3>
               <p class="card-number">15</p>
             </div>
           </div>
@@ -152,7 +153,7 @@ import ChartPie from './PieChart.vue'
               <h3>Actividades</h3>
               <p class="card-number">10</p>
             </div>
-          </div>
+
           <div class="charts-grid flex-wrapper ">
             <div class="chart-card">
               <h3>Actividades 🥧</h3>
@@ -161,6 +162,7 @@ import ChartPie from './PieChart.vue'
             <div class="chart-card h-100">
               <ChartLine />
             </div>
+          </div>
           </div>
         </section>
       </div>
@@ -180,20 +182,7 @@ import ChartPie from './PieChart.vue'
   margin-top: 2rem;
 }
 
-.section-title {
-  animation: fadeSlideIn 0.8s ease-in-out forwards;
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-@keyframes fadeSlideIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
   .summary-card {
-    background: linear-gradient(to bottom right, #f8fafc, #ffffff);
     border-radius: 1rem;
     padding: 1.5rem;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
@@ -211,23 +200,8 @@ import ChartPie from './PieChart.vue'
   font-weight: bold;
   margin-top: 0.5rem;
 }
-.accepted {
-  border-left: 6px solid #10b981; /* verde */
-}
 
-.in-contract {
-  border-left: 6px solid #3b82f6; /* azul */
-}
-
-.expiring {
-  border-left: 6px solid #f59e0b; /* naranja */
-}
-
-.finished {
-  border-left: 6px solid #9ca3af; /* gris */
-}
 .chart-card {
-  background: #ffffff;
   padding: 1rem;
   border-radius: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -264,15 +238,7 @@ import ChartPie from './PieChart.vue'
     transform: translateY(0);
   }
 }
-:root {
-  --primary: #1e3a8a; /* azul empresarial */
-  --accent: #3b82f6;
-  --background: #f9fafb;
-  --card-bg: rgba(255, 255, 255, 0.9);
-  --text-title: #1f2937;
-  --text-muted: #6b7280;
-  --border-light: rgba(0, 0, 0, 0.05);
-}
+
 
 .dashboard-container {
   background: var(--background);
@@ -324,6 +290,7 @@ import ChartPie from './PieChart.vue'
   font-weight: bold;
   color: var(--text-title);
   margin-top: 0.5rem;
+  min-width: 10rem;
 }
 
 .chart-card {
@@ -357,7 +324,7 @@ import ChartPie from './PieChart.vue'
 }
 
 .card-grid {
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
 
 </style>

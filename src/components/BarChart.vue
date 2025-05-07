@@ -14,7 +14,6 @@ const data = {
   labels: ['Ene', 'Feb', 'Mar', 'Abr'],
   datasets: [
     {
-      label: '',
       backgroundColor: 'rgba(28,8,61,0.98)',
       data: [65, 59, 80, 81]
     }
@@ -25,7 +24,6 @@ const options = {
   responsive: true,
   plugins: {
     legend: { position: 'top' },
-    title: { display: true, text: 'Ventas por Mes' }
   }
 }
 </script>

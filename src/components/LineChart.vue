@@ -15,9 +15,8 @@ const data = {
   labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie'],
   datasets: [
     {
-      label: 'Visitas',
-      borderColor: '#198754',
-      backgroundColor: '#19875433',
+      borderColor: 'rgba(8,2,51,0.85)',
+      backgroundColor: 'rgba(8,2,51,0.58)',
       data: [12, 19, 3, 5, 2],
       tension: 0.3
     }
@@ -28,7 +27,6 @@ const options = {
   responsive: true,
   plugins: {
     legend: { position: 'top' },
-    title: { display: true, text: 'Visitas Diarias' }
   }
 }
 </script>

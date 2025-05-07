@@ -14,9 +14,8 @@ const data = {
   labels: ['Activos', 'Inactivos', 'Pendientes'],
   datasets: [
     {
-      label: 'Usuarios',
       data: [300, 50, 100],
-      backgroundColor: ['#ffc107', '#dc3545', '#0d6efd'],
+      backgroundColor: ['rgba(8,2,51,0.85)', 'rgba(10,10,10,0.15)', '#0d6efd'],
     }
   ]
 }
@@ -25,7 +24,6 @@ const options = {
   responsive: true,
   plugins: {
     legend: { position: 'top' },
-    title: { display: true, text: 'Estado de Usuarios' }
   }
 }
 </script>
