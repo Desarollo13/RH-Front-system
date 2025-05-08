@@ -27,18 +27,18 @@
 
           <form @submit.prevent="handleLogin" novalidate>
             <div class="mb-3">
-              <label for="email" class="form-label">Correo electrónico</label>
+              <label for="username" class="form-label">Nombre de usuario</label>
               <input
-                type="email"
-                id="email"
-                v-model="email"
-                ref="emailInput"
-                :class="['form-control', emailStatus]"
+                type="text"
+                id="username"
+                v-model="username"
+                ref="usernameInput"
+                :class="['form-control', usernameStatus]"
               />
-              <div v-if="emailStatus === 'is-invalid'" class="invalid-feedback">
+              <div v-if="usernameStatus === 'is-invalid'" class="invalid-feedback">
                 Por favor ingresa un correo válido.
               </div>
-              <div v-if="emailStatus === 'is-valid'" class="valid-feedback">¡Correo válido!</div>
+              <div v-if="usernameStatus === 'is-valid'" class="valid-feedback">¡Correo válido!</div>
             </div>
 
             <div class="mb-4">
@@ -68,51 +68,68 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import logoPrincipal from '@/assets/img/logo.jpeg'
 import logoNexen from '@/assets/img/logoNexen.png'
+import api from '@/services/apiService'
+const loginError = ref('')
 
 const router = useRouter()
 
-const email = ref('')
+const username = ref('')
 const password = ref('')
-const emailStatus = ref('')
+const usernameStatus = ref('')
 const passwordStatus = ref('')
-const emailInput = ref(null)
+const usernameInput = ref(null)
 
-const validateEmail = (value) => {
-  return /^\S+@\S+\.\S+$/.test(value)
+const validateUsername = (value) => {
+  return value.trim().length >= 3
 }
+
+watch(username, (newVal) => {
+  usernameStatus.value = newVal === '' ? '' : validateUsername(newVal) ? 'is-valid' : 'is-invalid'
+})
+
 
 const validatePassword = (value) => {
   return value.trim().length > 5
 }
 
-watch(email, (newVal) => {
-  emailStatus.value = newVal === '' ? '' : validateEmail(newVal) ? 'is-valid' : 'is-invalid'
-})
-
 watch(password, (newVal) => {
   passwordStatus.value = newVal === '' ? '' : validatePassword(newVal) ? 'is-valid' : 'is-invalid'
 })
-
-const handleLogin = () => {
-  const isEmailValid = validateEmail(email.value)
+const handleLogin = async () => {
+  const isUsernameValid = validateUsername(username.value)
   const isPasswordValid = validatePassword(password.value)
 
-  emailStatus.value = isEmailValid ? 'is-valid' : 'is-invalid'
+  usernameStatus.value = isUsernameValid ? 'is-valid' : 'is-invalid'
   passwordStatus.value = isPasswordValid ? 'is-valid' : 'is-invalid'
 
-  if (isEmailValid && isPasswordValid) {
-    console.log('Login válido, redirigiendo...')
-    router.push({ name: 'dashboard' })
+  if (isUsernameValid && isPasswordValid) {
+
+    {
+      try {
+        const res = await api.post('/login', {
+          username: username.value,
+          password: password.value
+        })
+
+        if (res.status) {
+          localStorage.setItem('token', res.token)
+          localStorage.setItem('user', JSON.stringify(res.user))
+          router.push({ name: 'dashboard' })
+        } else {
+          loginError.value = res.message || 'Credenciales incorrectas'
+        }
+      } catch (err) {
+        loginError.value = 'Error de conexión con el servidor.'
+        console.error(err)
+      }
+    }
   }
 }
 
-onMounted(() => {
-  emailInput.value?.focus()
-})
 </script>
 
 <style>
