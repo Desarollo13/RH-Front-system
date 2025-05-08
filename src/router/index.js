@@ -21,6 +21,17 @@ const router = createRouter({
         },
       ],
     },
+    {
+      path: '/candidatos',
+      component: Main,
+      children: [
+        {
+          path: '',
+          name: 'candidatos',
+          component: () => import('@/views/pages/candidates/index.vue'),
+        },
+      ],
+    }
   ],
 })
 
