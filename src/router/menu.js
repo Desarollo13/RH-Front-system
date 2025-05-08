@@ -10,6 +10,12 @@ export const menuItems = [
     icon: 'bi bi-star-fill',
     submenus: [
       {
+        title: 'Candidatos',
+        path: '/candidatos',
+        icon: 'bi bi-person-badge',
+      },
+
+      {
         title: 'Contrataciones',
         path: '#contrataciones',
         icon: 'bi bi-star-fill',
