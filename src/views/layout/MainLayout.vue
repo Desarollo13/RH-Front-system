@@ -20,11 +20,11 @@ provide('isSidebarExpanded', isSidebarExpanded);
 
       <div class="page-body">
         <main class="main-area">
-          <div class="main-container flex-grow-1 d-flex flex-column">
-            <router-view class="flex-grow-1" />
-            <Footer />
+          <div class="main-container">
+            <router-view />
           </div>
         </main>
+        <Footer />
       </div>
     </div>
   </div>
