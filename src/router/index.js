@@ -31,7 +31,7 @@ const router = createRouter({
           component: () => import('@/views/pages/candidates/index.vue'),
         },
       ],
-    }
+    },
   ],
 })
 
