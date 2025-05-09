@@ -38,7 +38,7 @@ export const menuItems = [
   },
   {
     title: 'Candidatos',
-    path: '/candidatos',
+    path: '/candidates',
     icon: 'bi bi-person-badge',
   },
   {
@@ -63,4 +63,4 @@ export const menuItems = [
       },
     ],
   },
-]
+];
