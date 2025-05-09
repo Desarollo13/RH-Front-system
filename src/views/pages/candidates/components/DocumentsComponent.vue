@@ -10,11 +10,7 @@
             <h5 class="text-primary fw-bold mb-4">Referencias Laborales</h5>
 
             <div class="row">
-              <div
-                class="col-md-6 mb-3"
-                v-for="(field, idx) in fields"
-                :key="idx"
-              >
+              <div class="col-md-6 mb-3" v-for="(field, idx) in fields" :key="idx">
                 <label class="fw-semibold">{{ field.label }}</label>
                 <input
                   v-model="form[field.model]"
@@ -29,7 +25,12 @@
 
               <div class="col-md-12 mb-3">
                 <label class="fw-semibold">Motivo de Salida</label>
-                <textarea v-model="form.motivoSalida" class="form-control" :class="motivoSalidaStatus" rows="2"></textarea>
+                <textarea
+                  v-model="form.motivoSalida"
+                  class="form-control"
+                  :class="motivoSalidaStatus"
+                  rows="2"
+                ></textarea>
                 <div v-if="motivoSalidaStatus === 'is-invalid'" class="invalid-feedback">
                   Este campo es obligatorio.
                 </div>
@@ -51,14 +52,18 @@
               >
                 {{ exp.empresa }} - {{ exp.cargo }}
                 <div>
-                  <button class="btn btn-sm btn-warning me-2" @click="editExperience(index)">Editar</button>
-                  <button class="btn btn-sm btn-danger" @click="deleteExperience(index)">Eliminar</button>
+                  <button class="btn btn-sm btn-warning me-2" @click="editExperience(index)">
+                    Editar
+                  </button>
+                  <button class="btn btn-sm btn-danger" @click="deleteExperience(index)">
+                    Eliminar
+                  </button>
                 </div>
               </li>
             </ul>
 
             <div class="text-end">
-              <button class="btn btn-success" @click="onSubmit">Guardar Todo</button>
+              <button class="btn btn-primary" @click="onSubmit">Guardar Todo</button>
             </div>
           </CardContainer>
         </div>
@@ -93,21 +98,21 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted, computed } from 'vue'
-import CardContainer from '@/components/CardContainer.vue'
-import LoadingSpinner from '@/components/LoadingSpinner.vue'
-import ImgProfile from '@/assets/img/avatar-1.jpg'
+import { ref, watch, onMounted } from 'vue';
+import CardContainer from '@/components/CardContainer.vue';
+import LoadingSpinner from '@/components/LoadingSpinner.vue';
+import ImgProfile from '@/assets/img/avatar-1.jpg';
 
-const isLoading = ref(true)
+const isLoading = ref(true);
 onMounted(() => {
-  setTimeout(() => (isLoading.value = false), 2000)
-})
+  setTimeout(() => (isLoading.value = false), 2000);
+});
 
 const profileData = ref({
   nombre: 'John Doe',
   edad: '32 años',
   ubicacion: 'México, CDMX',
-})
+});
 
 const documents = ref([
   { name: 'Acta de Nacimiento', uploaded: false },
@@ -116,7 +121,7 @@ const documents = ref([
   { name: 'Certificado Médico', uploaded: true },
   { name: 'Comprobante de Domicilio', uploaded: false },
   { name: 'Seguro Social', uploaded: false },
-])
+]);
 
 const form = ref({
   empresa: '',
@@ -131,94 +136,137 @@ const form = ref({
   correo: '',
   motivoSalida: '',
   observacionDocumento: '',
-})
+});
 
-const experiences = ref([])
-const editingIndex = ref(null)
+const experiences = ref([]);
+const editingIndex = ref(null);
 
-const motivoSalidaStatus = ref('')
+const motivoSalidaStatus = ref('');
 
 const fields = ref([
-  { label: 'Empresa', model: 'empresa', status: ref(''), errorMessage: 'Este campo es obligatorio.' },
-  { label: 'Función', model: 'funcion', status: ref(''), errorMessage: 'Este campo es obligatorio.' },
-  { label: 'Fecha de Inicio', model: 'fechaInicio', type: 'date', status: ref(''), errorMessage: 'Este campo es obligatorio.' },
+  {
+    label: 'Empresa',
+    model: 'empresa',
+    status: ref(''),
+    errorMessage: 'Este campo es obligatorio.',
+  },
+  {
+    label: 'Función',
+    model: 'funcion',
+    status: ref(''),
+    errorMessage: 'Este campo es obligatorio.',
+  },
+  {
+    label: 'Fecha de Inicio',
+    model: 'fechaInicio',
+    type: 'date',
+    status: ref(''),
+    errorMessage: 'Este campo es obligatorio.',
+  },
   { label: 'Fecha de Fin', model: 'fechaFin', type: 'date', status: ref('') },
-  { label: 'Contacto', model: 'contacto', status: ref(''), errorMessage: 'Este campo es obligatorio.' },
+  {
+    label: 'Contacto',
+    model: 'contacto',
+    status: ref(''),
+    errorMessage: 'Este campo es obligatorio.',
+  },
   { label: 'Cargo', model: 'cargo', status: ref(''), errorMessage: 'Este campo es obligatorio.' },
   { label: 'Número', model: 'numero', status: ref('') },
-  { label: 'Correo', model: 'correo', status: ref(''), errorMessage: 'Correo inválido.', validator: (v) => /^\S+@\S+\.\S+$/.test(v) },
-])
+  {
+    label: 'Correo',
+    model: 'correo',
+    status: ref(''),
+    errorMessage: 'Correo inválido.',
+    validator: (v) => /^\S+@\S+\.\S+$/.test(v),
+  },
+]);
 
-fields.value.forEach(field => {
-  watch(() => form.value[field.model], (val) => {
-    if (!val) {
-      field.status.value = ''
-    } else if (field.validator) {
-      field.status.value = field.validator(val) ? 'is-valid' : 'is-invalid'
-    } else {
-      field.status.value = val.trim() !== '' ? 'is-valid' : 'is-invalid'
-    }
-  })
-})
+fields.value.forEach((field) => {
+  watch(
+    () => form.value[field.model],
+    (val) => {
+      if (!val) {
+        field.status.value = '';
+      } else if (field.validator) {
+        field.status.value = field.validator(val) ? 'is-valid' : 'is-invalid';
+      } else {
+        field.status.value = val.trim() !== '' ? 'is-valid' : 'is-invalid';
+      }
+    },
+  );
+});
 
-watch(() => form.value.motivoSalida, (val) => {
-  motivoSalidaStatus.value = val.trim() !== '' ? 'is-valid' : 'is-invalid'
-})
+watch(
+  () => form.value.motivoSalida,
+  (val) => {
+    motivoSalidaStatus.value = val.trim() !== '' ? 'is-valid' : 'is-invalid';
+  },
+);
 
 const validateAll = () => {
-  let valid = true
-  fields.value.forEach(field => {
-    const val = form.value[field.model]
+  let valid = true;
+  fields.value.forEach((field) => {
+    const val = form.value[field.model];
     if (field.validator) {
-      field.status.value = field.validator(val) ? 'is-valid' : 'is-invalid'
+      field.status.value = field.validator(val) ? 'is-valid' : 'is-invalid';
     } else {
-      field.status.value = val.trim() !== '' ? 'is-valid' : 'is-invalid'
+      field.status.value = val.trim() !== '' ? 'is-valid' : 'is-invalid';
     }
-    if (field.status.value === 'is-invalid') valid = false
-  })
-  motivoSalidaStatus.value = form.value.motivoSalida.trim() !== '' ? 'is-valid' : 'is-invalid'
-  if (motivoSalidaStatus.value === 'is-invalid') valid = false
-  return valid
-}
+    if (field.status.value === 'is-invalid') valid = false;
+  });
+  motivoSalidaStatus.value = form.value.motivoSalida.trim() !== '' ? 'is-valid' : 'is-invalid';
+  if (motivoSalidaStatus.value === 'is-invalid') valid = false;
+  return valid;
+};
 
 const resetForm = () => {
   Object.assign(form.value, {
-    empresa: '', funcion: '', fechaInicio: '', fechaFin: '', actualmenteLaborando: false,
-    rangoSalario: 0, contacto: '', cargo: '', numero: '', correo: '', motivoSalida: '', observacionDocumento: ''
-  })
-  editingIndex.value = null
-  fields.value.forEach(f => f.status.value = '')
-  motivoSalidaStatus.value = ''
-}
+    empresa: '',
+    funcion: '',
+    fechaInicio: '',
+    fechaFin: '',
+    actualmenteLaborando: false,
+    rangoSalario: 0,
+    contacto: '',
+    cargo: '',
+    numero: '',
+    correo: '',
+    motivoSalida: '',
+    observacionDocumento: '',
+  });
+  editingIndex.value = null;
+  fields.value.forEach((f) => (f.status.value = ''));
+  motivoSalidaStatus.value = '';
+};
 
 const addOrUpdateExperience = () => {
-  if (!validateAll()) return
+  if (!validateAll()) return;
   if (editingIndex.value !== null) {
-    experiences.value[editingIndex.value] = { ...form.value }
+    experiences.value[editingIndex.value] = { ...form.value };
   } else {
-    experiences.value.push({ ...form.value })
+    experiences.value.push({ ...form.value });
   }
-  resetForm()
-}
+  resetForm();
+};
 
 const editExperience = (index) => {
-  form.value = { ...experiences.value[index] }
-  editingIndex.value = index
-}
+  form.value = { ...experiences.value[index] };
+  editingIndex.value = index;
+};
 
 const deleteExperience = (index) => {
-  experiences.value.splice(index, 1)
-  if (editingIndex.value === index) resetForm()
-}
+  experiences.value.splice(index, 1);
+  if (editingIndex.value === index) resetForm();
+};
 
 const onSubmit = () => {
   if (experiences.value.length === 0) {
-    alert('Agrega al menos una experiencia laboral.')
-    return
+    alert('Agrega al menos una experiencia laboral.');
+    return;
   }
-  console.log('Experiencias enviadas:', experiences.value)
-  alert('¡Experiencias guardadas!')
-}
+  console.log('Experiencias enviadas:', experiences.value);
+  alert('¡Experiencias guardadas!');
+};
 </script>
 
 <style scoped>

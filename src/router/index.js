@@ -1,6 +1,6 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Login from '@/views/pages/login/login.vue'
-import Main from '@/views/layout/main.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import Login from '@/views/pages/login/login.vue';
+import Main from '@/views/layout/main.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,13 +21,13 @@ const router = createRouter({
           component: () => import('@/views/pages/dashboard/dashboard.vue'),
         },
         {
-          path: 'candidatos',
+          path: 'candidates',
           name: 'candidatos',
-          component: () => import('@/views/pages/candidates/index.vue'),
+          component: () => import('@/views/pages/candidates/CandidateIndex.vue'),
         },
       ],
     },
   ],
-})
+});
 
-export default router
+export default router;
