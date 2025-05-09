@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Login from '@/views/pages/login/login.vue';
+import { useAuthStore } from '@/stores/authStore';
+import Login from '@/views/pages/login/LoginAuth.vue';
 import Main from '@/views/layout/MainLayout.vue';
 
 const router = createRouter({
@@ -28,6 +29,22 @@ const router = createRouter({
       ],
     },
   ],
+});
+
+router.beforeEach((to, from, next) => {
+  const publicPages = ['/login'];
+  const authRequired = !publicPages.includes(to.path);
+  const auth = useAuthStore();
+
+  if (authRequired && !auth.token) {
+    return next('/login');
+  }
+
+  if (to.path === '/login' && auth.token) {
+    return next('/dashboard');
+  }
+
+  next();
 });
 
 export default router;
