@@ -2,7 +2,7 @@
 import { ref, provide } from 'vue';
 import Side from '@/views/layout/side.vue';
 import Header from '@/views/layout/header.vue';
-import Footer from '@/views/layout/footer.vue';
+import Footer from '@/views/layout/FooterLayout.vue';
 import { providePageTitle } from '@/composables/usePageTitle.js';
 
 providePageTitle();
@@ -20,11 +20,11 @@ provide('isSidebarExpanded', isSidebarExpanded);
 
       <div class="page-body">
         <main class="main-area">
-          <div class="main-container">
-            <router-view />
+          <div class="main-container flex-grow-1 d-flex flex-column">
+            <router-view class="flex-grow-1" />
+            <Footer />
           </div>
         </main>
-        <Footer />
       </div>
     </div>
   </div>
