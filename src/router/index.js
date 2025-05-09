@@ -13,25 +13,20 @@ const router = createRouter({
     {
       path: '/',
       component: Main,
+      redirect: '/dashboard',
       children: [
         {
           path: 'dashboard',
           name: 'dashboard',
           component: () => import('@/views/pages/dashboard/dashboard.vue'),
         },
-      ],
-    },
-    {
-      path: '/candidatos',
-      component: Main,
-      children: [
         {
-          path: '',
+          path: 'candidatos',
           name: 'candidatos',
           component: () => import('@/views/pages/candidates/index.vue'),
         },
       ],
-    }
+    },
   ],
 })
 
