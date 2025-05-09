@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid min-vh-100 d-flex flex-column">
+  <div class="container-fluid flex-grow-1 d-flex flex-column">
     <LoadingSpinner v-if="isLoading" />
     <div v-else class="row flex-grow-1 justify-content-center align-items-start">
       <div class="col-12 col-lg-10 py-4">
