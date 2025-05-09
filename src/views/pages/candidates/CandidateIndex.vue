@@ -42,7 +42,9 @@
 import { ref, computed, onMounted } from 'vue';
 import { defineAsyncComponent } from 'vue';
 import LoadingSpinner from '@/components/LoadingSpinner.vue';
+import { usePageTitle } from '@/composables/usePageTitle.js';
 
+const pageTitle = usePageTitle();
 const isLoading = ref(true);
 const activeTab = ref(0);
 
@@ -69,6 +71,7 @@ const totalSteps = steps.length;
 const progressValue = computed(() => (activeTab.value / (totalSteps - 1)) * 100);
 
 onMounted(() => {
+  pageTitle.value = 'Candidatos';
   setTimeout(() => {
     isLoading.value = false;
   }, 1000);
