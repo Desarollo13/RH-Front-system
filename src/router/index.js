@@ -36,11 +36,16 @@ router.beforeEach((to, from, next) => {
   const authRequired = !publicPages.includes(to.path);
   const auth = useAuthStore();
 
-  if (authRequired && !auth.token) {
+  const tokenInStorage = localStorage.getItem('auth')
+    ? JSON.parse(localStorage.getItem('auth'))?.token
+    : null;
+
+  if (authRequired && (!auth.token || !tokenInStorage)) {
+    auth.logout();
     return next('/login');
   }
 
-  if (to.path === '/login' && auth.token) {
+  if (to.path === '/login' && auth.token && tokenInStorage) {
     return next('/dashboard');
   }
 
