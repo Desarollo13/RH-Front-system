@@ -1,10 +1,10 @@
 <template>
   <div class="login-background d-flex align-items-center justify-content-center min-vh-100">
-    <div class="card shadow-lg rounded-4 w-100" style="max-width: 960px">
+    <div class="card shadow-lg rounded w-100" style="max-width: 960px">
       <div class="row g-0">
         <!-- Lado izquierdo -->
         <div
-          class="col-md-6 d-flex flex-column justify-content-center align-items-center p-4 bg-primary text-white"
+          class="col-md-6 d-flex flex-column justify-content-center align-items-center p-4 bg-primary text-white br-20"
         >
           <img
             :src="logoPrincipal"
@@ -19,7 +19,7 @@
         </div>
 
         <!-- Lado derecho -->
-        <div class="col-md-6 p-4 d-flex flex-column justify-content-center bg-white">
+        <div class="col-md-6 p-4 d-flex flex-column justify-content-center bg-white br-20">
           <div class="text-center mb-3">
             <img :src="logoNexen" alt="Logo Nexen" class="img-fluid" style="max-width: 180px" />
           </div>
@@ -76,7 +76,7 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
-import { login } from '@/api/auth';
+import { login } from '@/api/AuthUser';
 import { useAuthStore } from '@/stores/authStore';
 import logoPrincipal from '@/assets/img/logo.jpeg';
 import logoNexen from '@/assets/img/logoNexen.png';
@@ -101,7 +101,14 @@ const handleLogin = async () => {
   if (!validUsername.value || !validPassword.value) return;
 
   try {
-    const res = await login({ username: username.value, password: password.value });
+    const res = await login({
+      username: username.value,
+      password: password.value,
+    });
+
+    if (!res.status) {
+      throw new Error(res.message || 'Credenciales incorrectas');
+    }
 
     authStore.setAuth({
       token: res.data.token,
@@ -110,8 +117,7 @@ const handleLogin = async () => {
 
     router.push({ name: 'dashboard' });
   } catch (err) {
-    loginError.value =
-      err.response?.data?.message || 'Credenciales incorrectas o error de conexión.';
+    loginError.value = err.message || 'Error de conexión o credenciales inválidas.';
     console.error(err);
   }
 };
@@ -119,7 +125,7 @@ const handleLogin = async () => {
 
 <style scoped>
 .login-background {
-  background-image: url('@/assets/img/fondoLogin.jpg');
+  background-color: #f0f0f0;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
