@@ -12,17 +12,17 @@ export const menuItems = [
       {
         title: 'Contrataciones',
         path: '#contrataciones',
-        icon: 'bi bi-star-fill',
+        icon: 'bi bi-file-earmark-text-fill',
       },
       {
         title: 'Empleados',
         path: '#empleados',
-        icon: 'bi bi-star-fill',
+        icon: 'bi bi-people-fill',
       },
       {
         title: 'Evaluaciones',
         path: '#evaluaciones',
-        icon: 'bi bi-star-fill',
+        icon: 'bi bi-clipboard2-check-fill',
       },
       {
         title: 'Nomina',

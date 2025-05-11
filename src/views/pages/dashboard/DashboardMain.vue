@@ -13,7 +13,7 @@
 import LoadingSpinner from '@/components/LoadingSpinner.vue';
 import { ref, onMounted } from 'vue';
 import { usePageTitle } from '@/composables/usePageTitle.js';
-import Dashboard from '../../../components/Dashboard.vue';
+import Dashboard from './Dashboard-components/Dashboard.vue';
 
 const isLoading = ref(true);
 const pageTitle = usePageTitle();
