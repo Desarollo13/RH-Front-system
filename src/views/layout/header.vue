@@ -24,6 +24,7 @@ function toggleDropdown(event) {
   }
 }
 
+
 // Cerrar todos los dropdowns si haces clic fuera
 onMounted(() => {
   document.addEventListener('click', (e) => {
