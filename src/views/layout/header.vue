@@ -1,13 +1,47 @@
 <script setup>
+import { onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import TitlePage from '@/views/layout/titlePage.vue'
 import { usePageTitle } from '@/composables/usePageTitle.js'
 
 const pageTitle = usePageTitle()
+const router = useRouter()
+
+// Cerrar sesión
+function logout() {
+  localStorage.clear()
+  sessionStorage.clear()
+  router.push('/login')
+}
+
+// Mostrar u ocultar dropdown
+function toggleDropdown(event) {
+  const dropdown = event.currentTarget.closest('.dropdown')
+  if (dropdown) {
+    dropdown.classList.toggle('show')
+    const menu = dropdown.querySelector('.dropdown-menu')
+    if (menu) menu.classList.toggle('show')
+  }
+}
+
+
+// Cerrar todos los dropdowns si haces clic fuera
+onMounted(() => {
+  document.addEventListener('click', (e) => {
+    document.querySelectorAll('.dropdown').forEach((dropdown) => {
+      if (!dropdown.contains(e.target)) {
+        dropdown.classList.remove('show')
+        dropdown.querySelector('.dropdown-menu')?.classList.remove('show')
+      }
+    })
+  })
+})
 </script>
 
 <template>
   <header class="topbar glass shadow-sm m-3 rounded-4 px-4 bg-primary">
     <div class="topbar-inner d-flex justify-content-between align-items-center h-100">
+      <!-- Logo y título -->
       <div class="d-flex align-items-center gap-3">
         <router-link
           to="/dashboard"
@@ -18,13 +52,11 @@ const pageTitle = usePageTitle()
         <TitlePage :title="pageTitle" />
       </div>
 
+      <!-- Notificaciones y Usuario -->
       <div class="d-flex align-items-center gap-4">
-        <button class="icon-btn glow">
-          <i class="bi bi-gear fs-5"></i>
-        </button>
-
-        <div class="position-relative">
-          <button class="icon-btn glow position-relative">
+        <!-- Dropdown Notificaciones -->
+        <div class="dropdown" @click="toggleDropdown">
+          <button class="icon-btn glow position-relative" type="button">
             <i class="bi bi-bell fs-5"></i>
             <span
               class="badge bg-danger position-absolute top-0 start-100 translate-middle p-1 rounded-circle"
@@ -32,31 +64,52 @@ const pageTitle = usePageTitle()
               3
             </span>
           </button>
+          <ul class="dropdown-menu dropdown-menu-end shadow animated-dropdown px-2" style="width: 300px; left: -50px;">
+            <li class="dropdown-header fw-bold text-dark">Notificaciones</li>
+            <li>
+              <a class="dropdown-item small text-muted" href="#">
+                <i class="bi bi-info-circle text-primary me-2"></i>
+                Nuevo cambio en tu perfil
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item small text-muted" href="#">
+                <i class="bi bi-envelope text-success me-2"></i>
+                Tienes un mensaje sin leer
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item small text-muted" href="#">
+                <i class="bi bi-shield-exclamation text-warning me-2"></i>
+                Verifica tu contraseña
+              </a>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <a class="dropdown-item text-center text-primary small" href="#">Ver todas</a>
+            </li>
+          </ul>
         </div>
 
-        <div class="dropdown">
-          <button
-            class="btn btn-user d-flex align-items-center gap-2"
-            type="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
+        <!-- Dropdown Usuario -->
+        <div class="dropdown" @click="toggleDropdown">
+          <button class="btn btn-user d-flex align-items-center gap-5" type="button">
             <img src="@/assets/img/avatar-1.jpg" alt="user" class="avatar-img" />
             <span class="d-none d-md-inline text-white">Usuario</span>
             <i class="bi bi-chevron-down text-white small"></i>
           </button>
-          <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+          <ul class="dropdown-menu dropdown-menu-end shadow animated-dropdown">
             <li>
               <a class="dropdown-item" href="#"><i class="bi bi-person-circle me-2"></i>Perfil</a>
             </li>
             <li>
-              <a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Configuración</a>
+              <a class="dropdown-item" href="#"><i class="bi bi-lock me-2"></i>Cambio de contraseña</a>
             </li>
             <li><hr class="dropdown-divider" /></li>
             <li>
-              <a class="dropdown-item" href="#"
-                ><i class="bi bi-box-arrow-right me-2"></i>Cerrar sesión</a
-              >
+              <a class="dropdown-item" href="#" @click.prevent="logout">
+                <i class="bi bi-box-arrow-right me-2"></i>Cerrar sesión
+              </a>
             </li>
           </ul>
         </div>
@@ -83,7 +136,6 @@ const pageTitle = usePageTitle()
 
 .logo-img {
   height: 64px;
-  max-height: 80px;
   object-fit: contain;
   transition: transform 0.2s;
 }
@@ -124,5 +176,19 @@ const pageTitle = usePageTitle()
   width: 38px;
   border-radius: 50%;
   object-fit: cover;
+}
+
+.animated-dropdown {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.2s ease;
+  display: block;
+  pointer-events: none;
+}
+
+.dropdown.show .animated-dropdown {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
 }
 </style>
