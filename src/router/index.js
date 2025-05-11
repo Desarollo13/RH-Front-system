@@ -1,6 +1,7 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Login from '@/views/pages/login/login.vue'
-import Main from '@/views/layout/main.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import { useAuthStore } from '@/stores/authStore';
+import Login from '@/views/pages/login/LoginAuth.vue';
+import Main from '@/views/layout/MainLayout.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,16 +19,37 @@ const router = createRouter({
         {
           path: 'dashboard',
           name: 'dashboard',
-          component: () => import('@/views/pages/dashboard/dashboard.vue'),
+          component: () => import('@/views/pages/dashboard/DashboardMain.vue'),
         },
         {
-          path: 'candidatos',
+          path: 'candidates',
           name: 'candidatos',
-          component: () => import('@/views/pages/candidates/index.vue'),
+          component: () => import('@/views/pages/candidates/CandidateIndex.vue'),
         },
       ],
     },
   ],
-})
+});
 
-export default router
+router.beforeEach((to, from, next) => {
+  const publicPages = ['/login'];
+  const authRequired = !publicPages.includes(to.path);
+  const auth = useAuthStore();
+
+  const tokenInStorage = localStorage.getItem('auth')
+    ? JSON.parse(localStorage.getItem('auth'))?.token
+    : null;
+
+  if (authRequired && (!auth.token || !tokenInStorage)) {
+    auth.logout();
+    return next('/login');
+  }
+
+  if (to.path === '/login' && auth.token && tokenInStorage) {
+    return next('/dashboard');
+  }
+
+  next();
+});
+
+export default router;

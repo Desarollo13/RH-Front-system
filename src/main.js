@@ -1,21 +1,26 @@
 import 'bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import 'bootstrap/dist/js/bootstrap.bundle.min.js'
-import 'bootstrap-icons/font/bootstrap-icons.css'
-import 'bootstrap-vue-next/dist/bootstrap-vue-next.css'
-import '@/assets/root.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import 'bootstrap-vue-next/dist/bootstrap-vue-next.css';
+import '@/assets/root.css';
 
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
 
-import App from './App.vue'
-import router from './router'
-import { createBootstrap } from 'bootstrap-vue-next'
+import { createApp } from 'vue';
+import { createPinia } from 'pinia';
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 
-const app = createApp(App)
+import App from './App.vue';
+import router from './router';
+import { createBootstrap } from 'bootstrap-vue-next';
 
-app.use(createPinia())
-app.use(router)
-app.use(createBootstrap()) 
+const app = createApp(App);
 
-app.mount('#app')
+const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate);
+
+app.use(pinia);
+app.use(router);
+app.use(createBootstrap());
+
+app.mount('#app');

@@ -17,7 +17,7 @@
           <li v-for="(item, i) in menuItems" :key="i">
             <div
               class="nav-item d-flex align-items-center justify-content-between"
-              @click="toggleSubmenu(i)"
+              @click="item.submenus ? toggleSubmenu(i) : handleNavigation(item.path)"
               :class="{ active: isActive(item.path) || isActiveSub(item) }"
             >
               <div class="d-flex align-items-center">
@@ -40,11 +40,12 @@
                   <a
                     class="nav-link"
                     :class="{ active: isActive(sub.path) }"
-                    @click.prevent="goToAnchor(sub.path)"
+                    @click.prevent="handleNavigation(sub.path)"
                   >
                     <i :class="sub.icon"></i>
                     <span class="ms-2">{{ sub.title }}</span>
                   </a>
+
 
                 </li>
               </ul>
@@ -65,7 +66,17 @@
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { menuItems } from '@/router/menu.js'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
+
+const handleNavigation = (path) => {
+  if (path.startsWith('#')) {
+    goToAnchor(path)
+  } else {
+    router.push(path)
+  }
+}
 const isHovered = ref(false)
 const openSubmenus = ref([])
 const route = useRoute()

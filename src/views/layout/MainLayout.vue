@@ -1,14 +1,14 @@
 <script setup>
-import { ref, provide } from 'vue'
-import Side from '@/views/layout/side.vue'
-import Header from '@/views/layout/header.vue'
-import Footer from '@/views/layout/footer.vue'
-import { providePageTitle } from '@/composables/usePageTitle.js'
+import { ref, provide } from 'vue';
+import Side from '@/views/layout/sideBar.vue';
+import Header from '@/views/layout/header.vue';
+import Footer from '@/views/layout/FooterLayout.vue';
+import { providePageTitle } from '@/composables/usePageTitle.js';
 
-const pageTitle = providePageTitle()
+providePageTitle();
 
-const isSidebarExpanded = ref(false)
-provide('isSidebarExpanded', isSidebarExpanded)
+const isSidebarExpanded = ref(false);
+provide('isSidebarExpanded', isSidebarExpanded);
 </script>
 
 <template>

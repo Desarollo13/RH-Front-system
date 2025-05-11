@@ -10,25 +10,19 @@ export const menuItems = [
     icon: 'bi bi-star-fill',
     submenus: [
       {
-        title: 'Candidatos',
-        path: '/candidatos',
-        icon: 'bi bi-person-badge',
-      },
-
-      {
         title: 'Contrataciones',
         path: '#contrataciones',
-        icon: 'bi bi-star-fill',
+        icon: 'bi bi-file-earmark-text-fill',
       },
       {
         title: 'Empleados',
         path: '#empleados',
-        icon: 'bi bi-star-fill',
+        icon: 'bi bi-people-fill',
       },
       {
         title: 'Evaluaciones',
         path: '#evaluaciones',
-        icon: 'bi bi-star-fill',
+        icon: 'bi bi-clipboard2-check-fill',
       },
       {
         title: 'Nomina',
@@ -41,6 +35,11 @@ export const menuItems = [
         icon: 'bi bi-ticket-detailed',
       },
     ],
+  },
+  {
+    title: 'Candidatos',
+    path: '/candidates',
+    icon: 'bi bi-person-badge',
   },
   {
     title: 'Usuarios',
@@ -64,4 +63,4 @@ export const menuItems = [
       },
     ],
   },
-]
+];

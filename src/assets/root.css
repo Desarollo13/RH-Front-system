@@ -885,3 +885,6 @@ html {
     padding: 12px;
   }
 }
+.carousel-item {
+  min-height: 300px;
+}
