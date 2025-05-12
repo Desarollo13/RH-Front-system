@@ -9,11 +9,9 @@ const authStore = useAuthStore();
 const pageTitle = usePageTitle();
 const router = useRouter();
 
-console.log(authStore);
 // Cerrar sesión
 function logout() {
-  localStorage.clear();
-  sessionStorage.clear();
+  authStore.logout();
   router.push('/login');
 }
 
@@ -41,7 +39,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <header class="topbar glass shadow-sm m-3 rounded-4 px-4 bg-primary">
+  <header class="topbar shadow-sm m-3 rounded-4 px-4">
     <div class="topbar-inner d-flex justify-content-between align-items-center h-100">
       <!-- Logo y título -->
       <div class="d-flex align-items-center gap-3">
@@ -56,7 +54,7 @@ onMounted(() => {
 
       <!-- Notificaciones y Usuario -->
       <div class="d-flex align-items-center gap-4">
-        <!-- Dropdown Notificaciones -->
+        <!-- Notificaciones -->
         <div class="dropdown" @click="toggleDropdown">
           <button class="icon-btn glow position-relative" type="button">
             <i class="bi bi-bell fs-5"></i>
@@ -73,20 +71,17 @@ onMounted(() => {
             <li class="dropdown-header fw-bold text-dark">Notificaciones</li>
             <li>
               <a class="dropdown-item small text-muted" href="#">
-                <i class="bi bi-info-circle text-primary me-2"></i>
-                Nuevo cambio en tu perfil
+                <i class="bi bi-info-circle text-primary me-2"></i> Nuevo cambio en tu perfil
               </a>
             </li>
             <li>
               <a class="dropdown-item small text-muted" href="#">
-                <i class="bi bi-envelope text-success me-2"></i>
-                Tienes un mensaje sin leer
+                <i class="bi bi-envelope text-success me-2"></i> Tienes un mensaje sin leer
               </a>
             </li>
             <li>
               <a class="dropdown-item small text-muted" href="#">
-                <i class="bi bi-shield-exclamation text-warning me-2"></i>
-                Verifica tu contraseña
+                <i class="bi bi-shield-exclamation text-warning me-2"></i> Verifica tu contraseña
               </a>
             </li>
             <li><hr class="dropdown-divider" /></li>
@@ -96,27 +91,29 @@ onMounted(() => {
           </ul>
         </div>
 
-        <!-- Dropdown Usuario -->
+        <!-- Usuario -->
         <div class="dropdown" @click="toggleDropdown">
-          <button class="btn btn-user d-flex align-items-center gap-5" type="button">
+          <button class="btn btn-user d-flex align-items-center gap-3" type="button">
             <img src="@/assets/img/avatar-1.jpg" alt="user" class="avatar-img" />
             <span class="d-none d-md-inline text-white">{{ authStore.userName }}</span>
             <i class="bi bi-chevron-down text-white small"></i>
           </button>
 
-          <ul class="dropdown-menu dropdown-menu-end shadow animated-dropdown">
+          <ul class="dropdown-menu dropdown-menu-end shadow animated-dropdown mt-2">
             <li>
-              <a class="dropdown-item" href="#"><i class="bi bi-person-circle me-2"></i>Perfil</a>
+              <router-link to="/profile" class="dropdown-item">
+                <i class="bi bi-person-circle me-2"></i> Perfil
+              </router-link>
             </li>
             <li>
-              <a class="dropdown-item" href="#"
-                ><i class="bi bi-lock me-2"></i>Cambio de contraseña</a
-              >
+              <router-link to="/change-password" class="dropdown-item">
+                <i class="bi bi-lock me-2"></i> Cambio de contraseña
+              </router-link>
             </li>
             <li><hr class="dropdown-divider" /></li>
             <li>
               <a class="dropdown-item" href="#" @click.prevent="logout">
-                <i class="bi bi-box-arrow-right me-2"></i>Cerrar sesión
+                <i class="bi bi-box-arrow-right me-2"></i> Cerrar sesión
               </a>
             </li>
           </ul>
@@ -129,23 +126,18 @@ onMounted(() => {
 <style scoped>
 .topbar {
   height: 80px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: var(--primary);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 1rem;
   color: white;
-}
-
-.glass {
-  background: rgba(0, 46, 109, 0.75);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .logo-img {
   height: 64px;
   object-fit: contain;
-  transition: transform 0.2s;
+  transition: transform 0.2s ease;
 }
 
 .logo-img:hover {
@@ -170,13 +162,13 @@ onMounted(() => {
   background-color: rgba(255, 255, 255, 0.1);
   color: white;
   border: none;
-  padding: 0.4rem 0.75rem;
+  padding: 0.4rem 0.9rem;
   border-radius: 2rem;
-  transition: background 0.2s;
+  transition: background 0.2s ease;
 }
 
 .btn-user:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: var(--primaryh);
 }
 
 .avatar-img {
@@ -198,5 +190,10 @@ onMounted(() => {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
+}
+
+.dropdown-item:focus {
+  background-color: var(--primary);
+  color: white;
 }
 </style>

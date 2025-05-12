@@ -26,6 +26,16 @@ const router = createRouter({
           name: 'candidatos',
           component: () => import('@/views/pages/candidates/CandidateIndex.vue'),
         },
+        {
+          path: 'profile',
+          name: 'profile',
+          component: () => import('@/components/ComingSoon.vue'),
+        },
+        {
+          path: 'change-password',
+          name: 'change-password',
+          component: () => import('@/components/ComingSoon.vue'),
+        },
       ],
     },
   ],
