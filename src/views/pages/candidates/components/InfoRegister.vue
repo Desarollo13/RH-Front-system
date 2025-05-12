@@ -13,11 +13,7 @@
             :placeholder="field.placeholder || ''"
           >
             <option v-if="field.type === 'select'" disabled value="">Selecciona una opción</option>
-            <option
-              v-for="opt in field.options || []"
-              :key="opt"
-              :value="opt"
-            >
+            <option v-for="opt in field.options || []" :key="opt" :value="opt">
               {{ opt }}
             </option>
           </component>
@@ -36,8 +32,8 @@
 </template>
 
 <script setup>
-import { reactive, watch } from 'vue'
-import CardContainer from '@/components/CardContainer.vue'
+import { reactive, watch } from 'vue';
+import CardContainer from '@/components/utils/CardContainer.vue';
 
 const form = reactive({
   apellido_paterno: '',
@@ -49,14 +45,37 @@ const form = reactive({
   medio_contacto: '',
   telefono_casa: '',
   celular: '',
-})
+});
 
 const fields = [
-  { label: 'Apellido Paterno', model: 'apellido_paterno', errorMessage: 'Este campo es obligatorio.', status: '' },
-  { label: 'Apellido Materno', model: 'apellido_materno', errorMessage: 'Este campo es obligatorio.', status: '' },
+  {
+    label: 'Apellido Paterno',
+    model: 'apellido_paterno',
+    errorMessage: 'Este campo es obligatorio.',
+    status: '',
+  },
+  {
+    label: 'Apellido Materno',
+    model: 'apellido_materno',
+    errorMessage: 'Este campo es obligatorio.',
+    status: '',
+  },
   { label: 'Nombres', model: 'nombres', errorMessage: 'Este campo es obligatorio.', status: '' },
-  { label: 'Fecha de Nacimiento', model: 'fecha_nacimiento', inputType: 'date', errorMessage: 'Este campo es obligatorio.', status: '' },
-  { label: 'Género', model: 'genero', type: 'select', options: ['Masculino', 'Femenino', 'Otro'], errorMessage: 'Este campo es obligatorio.', status: '' },
+  {
+    label: 'Fecha de Nacimiento',
+    model: 'fecha_nacimiento',
+    inputType: 'date',
+    errorMessage: 'Este campo es obligatorio.',
+    status: '',
+  },
+  {
+    label: 'Género',
+    model: 'genero',
+    type: 'select',
+    options: ['Masculino', 'Femenino', 'Otro'],
+    errorMessage: 'Este campo es obligatorio.',
+    status: '',
+  },
   {
     label: 'Correo Electrónico',
     model: 'correo_electronico',
@@ -65,45 +84,57 @@ const fields = [
     validator: (v) => /^\S+@\S+\.\S+$/.test(v),
     status: '',
   },
-  { label: 'Medio de Contacto Vacante', model: 'medio_contacto', type: 'select', options: ['Correo', 'Teléfono Casa', 'Celular'], errorMessage: 'Este campo es obligatorio.', status: '' },
-  { label: 'Teléfono Casa', model: 'telefono_casa', errorMessage: 'Este campo es obligatorio.', status: '' },
+  {
+    label: 'Medio de Contacto Vacante',
+    model: 'medio_contacto',
+    type: 'select',
+    options: ['Correo', 'Teléfono Casa', 'Celular'],
+    errorMessage: 'Este campo es obligatorio.',
+    status: '',
+  },
+  {
+    label: 'Teléfono Casa',
+    model: 'telefono_casa',
+    errorMessage: 'Este campo es obligatorio.',
+    status: '',
+  },
   { label: 'Celular', model: 'celular', errorMessage: 'Este campo es obligatorio.', status: '' },
-]
+];
 
 fields.forEach((field) => {
   watch(
     () => form[field.model],
     (val) => {
       if (!val) {
-        field.status = ''
+        field.status = '';
       } else if (field.validator) {
-        field.status = field.validator(val) ? 'is-valid' : 'is-invalid'
+        field.status = field.validator(val) ? 'is-valid' : 'is-invalid';
       } else {
-        field.status = val.trim() !== '' ? 'is-valid' : 'is-invalid'
+        field.status = val.trim() !== '' ? 'is-valid' : 'is-invalid';
       }
-    }
-  )
-})
+    },
+  );
+});
 
 const validateAll = () => {
-  let valid = true
+  let valid = true;
   fields.forEach((field) => {
-    const val = form[field.model]
+    const val = form[field.model];
     if (field.validator) {
-      field.status = field.validator(val) ? 'is-valid' : 'is-invalid'
+      field.status = field.validator(val) ? 'is-valid' : 'is-invalid';
     } else {
-      field.status = val.trim() !== '' ? 'is-valid' : 'is-invalid'
+      field.status = val.trim() !== '' ? 'is-valid' : 'is-invalid';
     }
 
-    if (field.status === 'is-invalid') valid = false
-  })
-  return valid
-}
+    if (field.status === 'is-invalid') valid = false;
+  });
+  return valid;
+};
 
 const onSubmit = () => {
-  if (!validateAll()) return
-  console.log('Formulario enviado:', form)
-}
+  if (!validateAll()) return;
+  console.log('Formulario enviado:', form);
+};
 </script>
 
 <style scoped>

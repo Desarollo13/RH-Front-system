@@ -49,7 +49,7 @@
 
 <script setup>
 import { ref, watch } from 'vue';
-import CardContainer from '@/components/CardContainer.vue';
+import CardContainer from '@/components/utils/CardContainer.vue';
 
 const existingData = ref({
   apellidoPaterno: 'Ramírez',

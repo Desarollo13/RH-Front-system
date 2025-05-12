@@ -1,7 +1,6 @@
 <template>
   <div class="container-fluid flex-grow-1 d-flex flex-column">
-    <LoadingSpinner v-if="isLoading" />
-    <div v-else class="row flex-grow-1 justify-content-center align-items-start">
+    <div class="row flex-grow-1 justify-content-center align-items-start">
       <div class="col-12 col-lg-10 py-4">
         <!-- Barra de progreso -->
         <div class="progress mb-4" style="height: 8px">
@@ -41,11 +40,9 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import { defineAsyncComponent } from 'vue';
-import LoadingSpinner from '@/components/LoadingSpinner.vue';
 import { usePageTitle } from '@/composables/usePageTitle.js';
 
 const pageTitle = usePageTitle();
-const isLoading = ref(true);
 const activeTab = ref(0);
 
 const steps = [
@@ -72,8 +69,5 @@ const progressValue = computed(() => (activeTab.value / (totalSteps - 1)) * 100)
 
 onMounted(() => {
   pageTitle.value = 'Candidatos';
-  setTimeout(() => {
-    isLoading.value = false;
-  }, 1000);
 });
 </script>

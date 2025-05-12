@@ -1,7 +1,7 @@
 <script setup>
 import { ref, provide } from 'vue';
 import Side from '@/views/layout/sideBar.vue';
-import Header from '@/views/layout/header.vue';
+import Header from '@/views/layout/HeaderLayout.vue';
 import Footer from '@/views/layout/FooterLayout.vue';
 import { providePageTitle } from '@/composables/usePageTitle.js';
 
