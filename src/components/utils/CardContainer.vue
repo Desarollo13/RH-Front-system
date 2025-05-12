@@ -1,11 +1,11 @@
 <template>
-  <b-row>
-    <b-col class="12">
-      <b-card no-body>
-        <b-card-body>
+  <div class="row m-0">
+    <div class="col-12 p-0">
+      <div class="card border-0 h-100">
+        <div class="card-body h-100">
           <slot></slot>
-        </b-card-body>
-      </b-card>
-    </b-col>
-  </b-row>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>

@@ -16,7 +16,7 @@ provide('isSidebarExpanded', isSidebarExpanded);
     <Side v-model:isHovered="isSidebarExpanded" />
 
     <div :class="['main-content', { expanded: isSidebarExpanded }]">
-      <Header />
+      <Header class="header-navbar" />
 
       <div class="page-body">
         <main class="main-area">
@@ -31,6 +31,11 @@ provide('isSidebarExpanded', isSidebarExpanded);
 </template>
 
 <style scoped>
+.header-navbar {
+  position: relative;
+  z-index: 1055;
+}
+
 .layout-wrapper {
   display: flex;
   height: 100vh;

@@ -47,6 +47,11 @@ export const menuItems = [
     icon: 'bi bi-person',
   },
   {
+    title: 'Ejemplo',
+    path: 'example',
+    icon: 'bi bi-vector-pen',
+  },
+  {
     title: 'Configuración',
     path: '#',
     icon: 'bi bi-gear',
