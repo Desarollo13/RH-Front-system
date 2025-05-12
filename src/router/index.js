@@ -26,6 +26,11 @@ const router = createRouter({
           name: 'candidatos',
           component: () => import('@/views/pages/candidates/CandidateIndex.vue'),
         },
+        {
+          path: 'users',
+          name: 'users',
+          component: () => import('@/views/pages/users/UserPage.vue'),
+        },
       ],
     },
   ],
