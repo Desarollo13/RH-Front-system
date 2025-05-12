@@ -29,12 +29,12 @@ const router = createRouter({
         {
           path: 'profile',
           name: 'profile',
-          component: () => import('@/components/ComingSoon.vue'),
+          component: () => import('@/components/utils/ComingSoon.vue'),
         },
         {
           path: 'change-password',
           name: 'change-password',
-          component: () => import('@/components/ComingSoon.vue'),
+          component: () => import('@/components/utils/ComingSoon.vue'),
         },
       ],
     },

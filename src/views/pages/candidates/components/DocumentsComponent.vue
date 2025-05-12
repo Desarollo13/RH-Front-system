@@ -99,8 +99,8 @@
 
 <script setup>
 import { ref, watch, onMounted } from 'vue';
-import CardContainer from '@/components/CardContainer.vue';
-import LoadingSpinner from '@/components/LoadingSpinner.vue';
+import CardContainer from '@/components/utils/CardContainer.vue';
+import LoadingSpinner from '@/components/utils/LoadingSpinner.vue';
 import ImgProfile from '@/assets/img/avatar-1.jpg';
 
 const isLoading = ref(true);
