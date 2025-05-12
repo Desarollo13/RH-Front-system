@@ -1,41 +1,43 @@
 <script setup>
-import { onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-import TitlePage from '@/views/layout/titlePage.vue'
-import { usePageTitle } from '@/composables/usePageTitle.js'
+import { onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import TitlePage from '@/views/layout/titlePage.vue';
+import { usePageTitle } from '@/composables/usePageTitle.js';
+import { useAuthStore } from '@/stores/authStore';
 
-const pageTitle = usePageTitle()
-const router = useRouter()
+const authStore = useAuthStore();
+const pageTitle = usePageTitle();
+const router = useRouter();
 
+console.log(authStore);
 // Cerrar sesión
 function logout() {
-  localStorage.clear()
-  sessionStorage.clear()
-  router.push('/login')
+  localStorage.clear();
+  sessionStorage.clear();
+  router.push('/login');
 }
 
 // Mostrar u ocultar dropdown
 function toggleDropdown(event) {
-  const dropdown = event.currentTarget.closest('.dropdown')
+  const dropdown = event.currentTarget.closest('.dropdown');
   if (dropdown) {
-    dropdown.classList.toggle('show')
-    const menu = dropdown.querySelector('.dropdown-menu')
-    if (menu) menu.classList.toggle('show')
+    dropdown.classList.toggle('show');
+    const menu = dropdown.querySelector('.dropdown-menu');
+    if (menu) menu.classList.toggle('show');
   }
 }
-
 
 // Cerrar todos los dropdowns si haces clic fuera
 onMounted(() => {
   document.addEventListener('click', (e) => {
     document.querySelectorAll('.dropdown').forEach((dropdown) => {
       if (!dropdown.contains(e.target)) {
-        dropdown.classList.remove('show')
-        dropdown.querySelector('.dropdown-menu')?.classList.remove('show')
+        dropdown.classList.remove('show');
+        dropdown.querySelector('.dropdown-menu')?.classList.remove('show');
       }
-    })
-  })
-})
+    });
+  });
+});
 </script>
 
 <template>
@@ -64,7 +66,10 @@ onMounted(() => {
               3
             </span>
           </button>
-          <ul class="dropdown-menu dropdown-menu-end shadow animated-dropdown px-2" style="width: 300px; left: -50px;">
+          <ul
+            class="dropdown-menu dropdown-menu-end shadow animated-dropdown px-2"
+            style="width: 300px; left: -50px"
+          >
             <li class="dropdown-header fw-bold text-dark">Notificaciones</li>
             <li>
               <a class="dropdown-item small text-muted" href="#">
@@ -95,15 +100,18 @@ onMounted(() => {
         <div class="dropdown" @click="toggleDropdown">
           <button class="btn btn-user d-flex align-items-center gap-5" type="button">
             <img src="@/assets/img/avatar-1.jpg" alt="user" class="avatar-img" />
-            <span class="d-none d-md-inline text-white">Usuario</span>
+            <span class="d-none d-md-inline text-white">{{ authStore.userName }}</span>
             <i class="bi bi-chevron-down text-white small"></i>
           </button>
+
           <ul class="dropdown-menu dropdown-menu-end shadow animated-dropdown">
             <li>
               <a class="dropdown-item" href="#"><i class="bi bi-person-circle me-2"></i>Perfil</a>
             </li>
             <li>
-              <a class="dropdown-item" href="#"><i class="bi bi-lock me-2"></i>Cambio de contraseña</a>
+              <a class="dropdown-item" href="#"
+                ><i class="bi bi-lock me-2"></i>Cambio de contraseña</a
+              >
             </li>
             <li><hr class="dropdown-divider" /></li>
             <li>
