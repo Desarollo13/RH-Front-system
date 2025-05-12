@@ -43,9 +43,10 @@ export const menuItems = [
   },
   {
     title: 'Usuarios',
-    path: '#',
+    path: '/users',
     icon: 'bi bi-person',
   },
+ 
   {
     title: 'Configuración',
     path: '#',
