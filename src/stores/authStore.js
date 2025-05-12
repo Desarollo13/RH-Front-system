@@ -8,7 +8,13 @@ export const useAuthStore = defineStore('auth', {
 
   getters: {
     isAuthenticated: (state) => !!state.token && !!state.user,
-    userName: (state) => state.user?.name || '',
+    userName: (state) => {
+      if (!state.user) return '';
+      const name = state.user.name || '';
+      const last = state.user.last_name || '';
+      const second = state.user.second_last_name || '';
+      return `${name} ${last} ${second}`.trim();
+    },
   },
 
   actions: {

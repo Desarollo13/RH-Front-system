@@ -13,19 +13,12 @@
             :placeholder="field.placeholder || ''"
           >
             <option v-if="field.type === 'select'" value="">Selecciona una opción</option>
-            <option
-              v-for="opt in field.options || []"
-              :key="opt"
-              :value="opt"
-            >
+            <option v-for="opt in field.options || []" :key="opt" :value="opt">
               {{ opt }}
             </option>
           </component>
 
-          <div
-            v-if="status[field.model] === 'is-invalid'"
-            class="invalid-feedback"
-          >
+          <div v-if="status[field.model] === 'is-invalid'" class="invalid-feedback">
             {{ field.errorMessage }}
           </div>
         </div>
@@ -40,7 +33,7 @@
 
 <script setup>
 import { ref, reactive, watch } from 'vue';
-import CardContainer from '@/components/CardContainer.vue';
+import CardContainer from '@/components/utils/CardContainer.vue';
 
 const form = reactive({
   apellido_paterno: '',
@@ -57,11 +50,30 @@ const form = reactive({
 const status = reactive({});
 
 const fields = [
-  { label: 'Apellido Paterno', model: 'apellido_paterno', errorMessage: 'Este campo es obligatorio.' },
-  { label: 'Apellido Materno', model: 'apellido_materno', errorMessage: 'Este campo es obligatorio.' },
+  {
+    label: 'Apellido Paterno',
+    model: 'apellido_paterno',
+    errorMessage: 'Este campo es obligatorio.',
+  },
+  {
+    label: 'Apellido Materno',
+    model: 'apellido_materno',
+    errorMessage: 'Este campo es obligatorio.',
+  },
   { label: 'Nombres', model: 'nombres', errorMessage: 'Este campo es obligatorio.' },
-  { label: 'Fecha de Nacimiento', model: 'fecha_nacimiento', inputType: 'date', errorMessage: 'Este campo es obligatorio.' },
-  { label: 'Género', model: 'genero', type: 'select', options: ['Masculino', 'Femenino', 'Otro'], errorMessage: 'Este campo es obligatorio.' },
+  {
+    label: 'Fecha de Nacimiento',
+    model: 'fecha_nacimiento',
+    inputType: 'date',
+    errorMessage: 'Este campo es obligatorio.',
+  },
+  {
+    label: 'Género',
+    model: 'genero',
+    type: 'select',
+    options: ['Masculino', 'Femenino', 'Otro'],
+    errorMessage: 'Este campo es obligatorio.',
+  },
   {
     label: 'Correo Electrónico',
     model: 'correo_electronico',
@@ -69,7 +81,13 @@ const fields = [
     errorMessage: 'Correo inválido.',
     validator: (v) => /^\S+@\S+\.\S+$/.test(v),
   },
-  { label: 'Medio de Contacto Vacante', model: 'medio_contacto', type: 'select', options: ['Correo', 'Teléfono Casa', 'Celular'], errorMessage: 'Este campo es obligatorio.' },
+  {
+    label: 'Medio de Contacto Vacante',
+    model: 'medio_contacto',
+    type: 'select',
+    options: ['Correo', 'Teléfono Casa', 'Celular'],
+    errorMessage: 'Este campo es obligatorio.',
+  },
   { label: 'Teléfono Casa', model: 'telefono_casa', errorMessage: 'Este campo es obligatorio.' },
   { label: 'Celular', model: 'celular', errorMessage: 'Este campo es obligatorio.' },
 ];
@@ -87,7 +105,7 @@ fields.forEach((field) => {
       } else {
         status[field.model] = val.trim() !== '' ? 'is-valid' : 'is-invalid';
       }
-    }
+    },
   );
 });
 

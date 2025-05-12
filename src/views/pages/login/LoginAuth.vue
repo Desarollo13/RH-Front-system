@@ -71,6 +71,26 @@
       </div>
     </div>
   </div>
+
+  <AlertModal
+    :show="showSuccess"
+    icon="success"
+    title="¡Bienvenido!"
+    message="Inicio de sesión exitoso."
+    :timer="1500"
+    :show-confirm-button="false"
+    @closed="router.push({ name: 'dashboard' })"
+  />
+
+  <AlertModal
+    :show="showError"
+    icon="error"
+    title="¡Error de autenticación!"
+    :message="loginError"
+    confirm-button-text="Cerrar"
+    :show-cancel-button="false"
+    @closed="showError = false"
+  />
 </template>
 
 <script setup>
@@ -80,6 +100,7 @@ import { login } from '@/api/AuthUser';
 import { useAuthStore } from '@/stores/authStore';
 import logoPrincipal from '@/assets/img/logo.jpeg';
 import logoNexen from '@/assets/img/logoNexen.png';
+import AlertModal from '@/components/alerts/AlertModal.vue';
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -89,6 +110,8 @@ const password = ref('');
 const usernameTouched = ref(false);
 const passwordTouched = ref(false);
 const loginError = ref('');
+const showSuccess = ref(false);
+const showError = ref(false);
 
 const validUsername = computed(() => username.value.trim().length >= 3);
 const validPassword = computed(() => password.value.trim().length >= 6);
@@ -107,7 +130,9 @@ const handleLogin = async () => {
     });
 
     if (!res.status) {
-      throw new Error(res.message || 'Credenciales incorrectas');
+      loginError.value = res.message || 'Credenciales inválidas';
+      showError.value = true;
+      return;
     }
 
     authStore.setAuth({
@@ -115,9 +140,15 @@ const handleLogin = async () => {
       user: res.data.user,
     });
 
-    router.push({ name: 'dashboard' });
+    showSuccess.value = true;
   } catch (err) {
-    loginError.value = err.message || 'Error de conexión o credenciales inválidas.';
+    if (err.response && err.response.data) {
+      loginError.value = err.response.data.message || 'Error de autenticación.';
+    } else {
+      loginError.value = 'Error inesperado. Intenta nuevamente.';
+    }
+
+    showError.value = true;
     console.error(err);
   }
 };
