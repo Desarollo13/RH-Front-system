@@ -31,6 +31,7 @@
             <th v-for="col in columns" :key="col.key">
               {{ col.label }}
             </th>
+            <th v-if="showStatus">Estado</th>
             <th v-if="hasActions">Acciones</th>
           </tr>
         </thead>
@@ -38,6 +39,9 @@
           <tr v-for="item in paginatedItems" :key="item.id">
             <td v-for="col in columns" :key="col.key">
               {{ item[col.key] }}
+            </td>
+            <td v-if="showStatus">
+              <TableStatus :status="item.status" />
             </td>
             <td v-if="hasActions">
               <TableActions
@@ -75,8 +79,11 @@ import TableCreateButton from './TableCreateButton.vue';
 import TablePagination from './TablePagination.vue';
 import TableActions from './TableActions.vue';
 import TableTitle from './TableTitle.vue';
+import TableStatus from './TableStatus.vue';
 
 const props = defineProps({
+  showStatus: { type: Boolean, default: false },
+
   data: Array,
   columns: Array,
 
