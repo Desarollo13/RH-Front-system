@@ -38,7 +38,7 @@ export const menuItems = [
   },
   {
     title: 'Catalogos',
-    path:'#',
+    path: '#',
     icon: 'bi bi-journal-bookmark-fill',
     submenus: [
       {
@@ -48,15 +48,14 @@ export const menuItems = [
       },
       {
         title: 'Sucursales',
-        path: '/branches',
-        icon: 'bi bi-person-badge',
+        path: '/branch-offices',
+        icon: 'bi bi-bank',
       },
       {
         title: 'Categorias',
         path: '/categories',
         icon: 'bi bi-person-badge',
       },
-
     ],
   },
   {
@@ -65,25 +64,15 @@ export const menuItems = [
     icon: 'bi bi-person-badge',
   },
   {
-    title: 'Usuarios',
-    path: '/users',
-    icon: 'bi bi-person',
-  },
-  {
-    title: 'Sucursales',
-    path: '/branch-offices',
-    icon: 'bi bi-bank',
-  },
-  {
-    title: 'Ejemplo',
-    path: 'example',
-    icon: 'bi bi-vector-pen',
-  },
-  {
     title: 'Configuración',
     path: '#',
     icon: 'bi bi-gear',
     submenus: [
+      {
+        title: 'Usuarios',
+        path: '/users',
+        icon: 'bi bi-person',
+      },
       {
         title: 'Roles',
         path: '#',
@@ -95,23 +84,10 @@ export const menuItems = [
         icon: 'bi bi-person-lines-fill',
       },
     ],
-
   },
   {
-    title: 'Configuración',
-    path: '#',
-    icon: 'bi bi-gear',
-    submenus: [
-      {
-        title: 'Editar Perfil',
-        path: '#',
-        icon: 'bi bi-person-lines-fill',
-      },
-      {
-        title: 'Configuarción Contraseña',
-        path: '#',
-        icon: 'bi bi-person-lines-fill',
-      },
-    ],
+    title: 'Ejemplo',
+    path: 'example',
+    icon: 'bi bi-vector-pen',
   },
 ];
