@@ -50,6 +50,10 @@ export const menuItems = [
     title: 'Sucursales',
     path: '/branch-offices',
     icon: 'bi bi-bank',
+  },{
+    title: 'Áreas',
+    path: '/areas',
+    icon: 'bi bi-hdd-rack',
   },
   {
     title: 'Ejemplo',
