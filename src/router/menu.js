@@ -46,7 +46,11 @@ export const menuItems = [
     path: '/users',
     icon: 'bi bi-person',
   },
- 
+  {
+    title: 'Sucursales',
+    path: '/branch-offices',
+    icon: 'bi bi-bank',
+  },
   {
     title: 'Configuración',
     path: '#',
