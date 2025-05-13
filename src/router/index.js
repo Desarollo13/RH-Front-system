@@ -36,6 +36,21 @@ const router = createRouter({
           name: 'change-password',
           component: () => import('@/components/utils/ComingSoon.vue'),
         },
+        {
+          path: 'example',
+          name: 'example',
+          component: () => import('@/views/pages/ViewTemplate.vue'),
+        },
+        {
+          path: 'users',
+          name: 'users',
+          component: () => import('@/views/pages/users/UserPage.vue'),
+        },
+        {
+          path: 'branch-offices',
+          name: 'branch-offices',
+          component: () => import('@/views/pages/branch-offices/BranchOffice.vue'),
+        },
       ],
     },
   ],
