@@ -4,31 +4,14 @@
       <div class="col-12 col-lg-10 py-4">
         <!-- Barra de progreso -->
         <div class="progress mb-4" style="height: 8px">
-          <div
-            class="progress-bar"
-            :style="{ width: progressValue + '%', backgroundColor: 'var(--primary)' }"
-            role="progressbar"
-            aria-valuemin="0"
-            aria-valuemax="100"
-            :aria-valuenow="progressValue"
-          ></div>
+          <div class="progress-bar" :style="{ width: progressValue + '%', backgroundColor: 'var(--primary)' }"
+            role="progressbar" aria-valuemin="0" aria-valuemax="100" :aria-valuenow="progressValue"></div>
         </div>
 
         <!-- Tabs como pasos -->
-        <b-tabs
-          v-model="activeTab"
-          pills
-          fill
-          card
-          nav-class="nav-pills justify-content-center"
-          active-nav-item-class="bg-primary text-white"
-        >
-          <b-tab
-            v-for="(step, index) in steps"
-            :key="index"
-            :title="`${index + 1}. ${step.name}`"
-            class="p-3"
-          >
+        <b-tabs v-model="activeTab" pills fill card nav-class="nav-pills justify-content-center"
+          active-nav-item-class="bg-primary text-white">
+          <b-tab v-for="(step, index) in steps" :key="index" :title="`${index + 1}. ${step.name}`" class="p-3">
             <component :is="step.component" />
           </b-tab>
         </b-tabs>
@@ -68,6 +51,6 @@ const totalSteps = steps.length;
 const progressValue = computed(() => (activeTab.value / (totalSteps - 1)) * 100);
 
 onMounted(() => {
-  pageTitle.value = 'Candidatos';
+  pageTitle.value = 'Perfiles';
 });
 </script>

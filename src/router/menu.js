@@ -59,11 +59,6 @@ export const menuItems = [
     ],
   },
   {
-    title: 'Candidatos',
-    path: '/candidates',
-    icon: 'bi bi-person-badge',
-  },
-  {
     title: 'Configuración',
     path: '#',
     icon: 'bi bi-gear',
@@ -72,6 +67,11 @@ export const menuItems = [
         title: 'Usuarios',
         path: '/users',
         icon: 'bi bi-person',
+      },
+      {
+        title: 'Perfiles',
+        path: '/candidates',
+        icon: 'bi bi-person-badge',
       },
       {
         title: 'Roles',
