@@ -46,6 +46,11 @@ const router = createRouter({
           name: 'branch-offices',
           component: () => import('@/views/pages/branch-offices/BranchOffice.vue'),
         },
+        {
+          path: 'areas',
+          name: 'areas',
+          component: () => import('@/views/pages/areas/AreasPage.vue'),
+        },
       ],
     },
   ],
