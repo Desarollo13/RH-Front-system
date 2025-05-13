@@ -774,6 +774,7 @@ html {
 /* Botón de Cerrar */
 .btn-close {
   filter: brightness(90%);
+  background-color: var(--danger);
 }
 
 /* Estilo para el Body del Modal */
