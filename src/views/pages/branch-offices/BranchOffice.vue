@@ -1,192 +1,83 @@
 <template>
-    <h1 class="h3 mb-4 d-flex align-items-center gap-2">
-      <i class="bi bi-bank text-primary fs-1"></i>
-      Sucursales
-    </h1>
-  
-    <div class="data-table">
-      <div class="header">
-        <div class="search-box">
-          <input
-            v-model="searchQuery"
-            type="text"
-            placeholder="Buscar..."
-            class="search-input"
-          />
-          <button class="btn-add" @click="openModal">Agregar +</button>
-        </div>
-  
-        <div class="pagination">
-          <span>Página {{ currentPage }} de {{ totalPages }}</span>
-          <select v-model="currentPage" class="pagination-select">
-            <option v-for="page in totalPages" :key="page" :value="page">
-              {{ page }}
-            </option>
-          </select>
-        </div>
-      </div>
-  
-      <Modal
-        :visible="modalOpen"
-        :title="'Agregar Sucursal'"
-        @close="closeModal"
-      >
-        <UserForm
-          :isOpen="modalOpen"
-          :user="user"
-          @save="saveUser"
-          @close="closeModal"
-        />
-      </Modal>
-  
-      <!-- Tabla -->
-      <table class="table table-striped">
-        <thead>
-          <tr class="backgroung-tr">
-            <th class="id-column">#</th>
-            <th class="name-column">Sucursal</th>
-            <th class="desc-column">Estatus</th>
-            <th class="desc-column">Fecha</th>
-            <th class="desc-column">Usuario</th>
-            <th class="icon-column">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in paginatedData" :key="item.id">
-            <td class="id-column">{{ item.id }}</td>
-            <td class="name-column">{{ item.sucursal }}</td>
-            <td class="desc-column">{{ item.status }}</td>
-            <td class="desc-column">{{ item.date }}</td>
-            <td class="desc-column">{{ item.user }}</td>
-            <td class="icon-column">
-              <button class="btn btn-danger btn-sm" style="margin-right: 8px">
-                <i class="bi bi-trash3-fill"></i>
-              </button>
-              <button class="btn btn-success btn-sm">
-                <i class="bi bi-pencil-square"></i>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </template>
-  
-  <script setup>
-  import { ref, computed } from "vue";
- 
-  
-  const data = ref([
-    { id: 1, sucursal: "Mariano Escobedo", status: "A", date: "29/04/2025", user: "Administrador" },
-    { id: 2, sucursal: "Bradley", status: "A", date: "29/04/2025", user: "Administrador" },
-    { id: 3, sucursal: "Vallejo", status: "A", date: "29/04/2025", user: "Administrador" },
-    { id: 4, sucursal: "AIFA", status: "A", date: "29/04/2025", user: "Administrador" },
-    { id: 5, sucursal: "Lerma", status: "A", date: "29/04/2025", user: "Administrador" },
-  ]);
-  
-  const searchQuery = ref("");
-  const itemsPerPage = 10;
-  const currentPage = ref(1);
-  
-  const filteredData = computed(() => {
-  if (!searchQuery.value) return data.value;
-  return data.value.filter((item) =>
-    item.sucursal.toLowerCase().includes(searchQuery.value.toLowerCase())
-  );
-});
+  <CardContainer>
+    <DataTable
+      tableTitle="Sucursales"
+      tableIcon="bi-bank"
+      :data="items"
+      :columns="columns"
+      :search="search"
+      :perPage="perPage"
+      :currentPage="currentPage"
+      :showEdit="true"
+      :showDelete="true"
+      :showStatus="true"
+      @update:search="search = $event"
+      @update:perPage="perPage = $event"
+      @update:currentPage="currentPage = $event"
+      @create="handleCreate"
+      @edit="editItem"
+      @delete="deleteItem"
+    />
+    <ModalCreateEdit :visible="showModal" @close="showModal = false" />
+  </CardContainer>
+</template>
 
-  
-  const paginatedData = computed(() => {
-    const start = (currentPage.value - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
-    return filteredData.value.slice(start, end);
-  });
-  
-  const totalPages = computed(() => {
-    return Math.ceil(filteredData.value.length / itemsPerPage);
-  });
-  </script>
-  
-  
-  <style scoped>
-  .data-table {
-    width: 100%;
-    margin: 20px 0;
-  }
-  
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .backgroung-tr {
-    background-color: #007bff73;
-  }
-  
-  .search-box {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-  }
-  
-  .search-input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .btn-add {
-    background-color: #0B4269;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .pagination-select {
-    padding: 0 5px;
-    margin-left: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-  }
-  
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .table th {
-    background-color: #0B4269;
-    color: white;
-    padding: 12px;
-    text-align: left;
-  }
-  
-  .table td {
-    padding: 12px;
-    border: 1px solid #ddd;
-    text-align: left;
-  }
+<script setup>
+import { ref, onMounted } from 'vue';
+import CardContainer from '@/components/utils/CardContainer.vue';
+import DataTable from '@/components/data-table/DataTable.vue';
+import { usePageTitle } from '@/composables/usePageTitle.js';
+import ModalCreateEdit from './components/ModalCreateEdit.vue';
 
-  .id-column {
-    width: 5%;
-    text-align: center;
-  }
+const pageTitle = usePageTitle();
+const showModal = ref(false);
 
-  .name-column {
-    width: 25%;
-  }
-  
-  .desc-column {
-    width: 12%;
-  }
-  
-  .icon-column {
-    width: 10%;
-    text-align: center;
-  }
+const search = ref('');
+const perPage = ref(10);
+const currentPage = ref(1);
 
-  </style>
+//datos simulados
+const columns = [
+  { key: 'id', label: 'ID' },
+  { key: 'name', label: 'Nombre' },
+  { key: 'phone', label: 'Telefono' },
+  { key: 'address', label: 'Direccion' },
+  { key: 'zip_code', label: 'Codigo Postal' },
+
+];
+
+const items = ref([
+  {
+    id: 1,
+    name: 'Sucursal Centro',
+    phone: '555-1234',
+    address: 'Av. Principal 123',
+    zip_code: '12345',
+    status: 1,
+  },
+  {
+    id: 2,
+    name: 'Sucursal Norte',
+    phone: '555-5678',
+    address: 'Calle Norte 456',
+    zip_code: '67890',
+    status: 0,
+  },
+]);
+
+
+//funciones de acciones
+function handleCreate() {
+  showModal.value = true;
+}
+
+function editItem(item) {
+  alert('Editar sucrsal: ' + item.name);
+}
+
+function deleteItem(item) {
+  alert('Eliminar sucrsal: ' + item.name);
+}
+
+onMounted(() => (pageTitle.value = 'Sucursales'));
+</script>
