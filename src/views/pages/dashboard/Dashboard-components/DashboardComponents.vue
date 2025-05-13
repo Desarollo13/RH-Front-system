@@ -123,7 +123,7 @@ import chartCarousel from './ChartCarousel.vue'
       <br>
       <br>
     </section>
-<hr>
+    <hr>
     <!-- EVALUACIONES -->
     <section id="evaluaciones" class="mb-6 p-6 gap-2">
       <h2 class="h5 border-bottom pb-2 mb-4 text-secondary d-flex align-items-center gap-2">

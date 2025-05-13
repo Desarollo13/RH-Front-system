@@ -9,7 +9,7 @@
 <script setup>
 import { onMounted } from 'vue';
 import { usePageTitle } from '@/composables/usePageTitle.js';
-import Dashboard from './Dashboard-components/Dashboard.vue';
+import Dashboard from './Dashboard-components/DashboardComponents.vue';
 
 const pageTitle = usePageTitle();
 
