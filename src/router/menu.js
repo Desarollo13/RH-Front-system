@@ -87,7 +87,7 @@ export const menuItems = [
   },
   {
     title: 'Ejemplo',
-    path: 'example',
+    path: '/example',
     icon: 'bi bi-vector-pen',
   },
 ];
