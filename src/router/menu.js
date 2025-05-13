@@ -1,14 +1,14 @@
 export const menuItems = [
   {
     title: 'Dasboard',
-    path: '/dashboard',
-    icon: 'bi bi-bar-chart',
-  },
-  {
-    title: 'Recursos Humanos',
     path: '#',
-    icon: 'bi bi-star-fill',
+    icon: 'bi bi-bar-chart',
     submenus: [
+      {
+        title: 'Inicio',
+        path: '/dashboard',
+        icon: 'bi bi-balloon-heart',
+      },
       {
         title: 'Contrataciones',
         path: '#contrataciones',
@@ -37,30 +37,42 @@ export const menuItems = [
     ],
   },
   {
+    title: 'Catalogos',
+    path: '#',
+    icon: 'bi bi-journal-bookmark-fill',
+    submenus: [
+      {
+        title: 'Áreas',
+        path: '/areas',
+        icon: 'bi bi-person-badge',
+      },
+      {
+        title: 'Sucursales',
+        path: '/branch-offices',
+        icon: 'bi bi-bank',
+      },
+      {
+        title: 'Categorias',
+        path: '/categories',
+        icon: 'bi bi-person-badge',
+      },
+    ],
+  },
+  {
     title: 'Candidatos',
     path: '/candidates',
     icon: 'bi bi-person-badge',
-  },
-  {
-    title: 'Usuarios',
-    path: '/users',
-    icon: 'bi bi-person',
-  },
-  {
-    title: 'Sucursales',
-    path: '/branch-offices',
-    icon: 'bi bi-bank',
-  },
-  {
-    title: 'Ejemplo',
-    path: 'example',
-    icon: 'bi bi-vector-pen',
   },
   {
     title: 'Configuración',
     path: '#',
     icon: 'bi bi-gear',
     submenus: [
+      {
+        title: 'Usuarios',
+        path: '/users',
+        icon: 'bi bi-person',
+      },
       {
         title: 'Roles',
         path: '#',
@@ -72,5 +84,10 @@ export const menuItems = [
         icon: 'bi bi-person-lines-fill',
       },
     ],
+  },
+  {
+    title: 'Ejemplo',
+    path: 'example',
+    icon: 'bi bi-vector-pen',
   },
 ];

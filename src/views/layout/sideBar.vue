@@ -1,4 +1,10 @@
 <template>
+<!--  <div-->
+<!--    v-if="isMobileOpen"-->
+<!--    @click="isMobileOpen = false"-->
+<!--    class="fixed inset-0 bg-black/50 z-40 md:hidden"-->
+<!--  ></div>-->
+
   <aside
     class="sidebar"
     :class="{ expanded: isHovered }"
@@ -57,7 +63,9 @@
 
     <div class="footer mt-auto">
       <i class="bi bi-person-circle"></i>
-      <span v-if="isHovered" class="ms-2">Cuenta</span>
+      <span v-if="isHovered" class="ms-2">
+      {{ authStore.userName || 'Usuario no identificado' }}
+      </span>
     </div>
   </aside>
 </template>
@@ -67,7 +75,9 @@ import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { menuItems } from '@/router/menu.js'
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/authStore.js'
 
+const authStore = useAuthStore()
 const router = useRouter()
 
 const handleNavigation = (path) => {
